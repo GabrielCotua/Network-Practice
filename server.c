@@ -6,5 +6,22 @@ int main(int argc, char **argv)
    //request-response
    
    zsock_t * responder = zsock_new(ZMQ_REP);
-   zsock_bind(responder, "tcp://localhost:5555");
+   int r = zsock_bind(responder, "tcp://*:5555");
+   if (r != 5555)
+   {
+      printf("Failed to bind to port\n");
+   }
+
+   while (true)
+   {
+      char *msg = zstr_recv(responder);
+      if (!strcmp(msg, "Low Level"));
+      {
+         zstr_send(responder, "Gang");
+      }
+
+      free(msg);
+   }
+   
+   zsock_destroy(&responder);
 }
