@@ -6,7 +6,7 @@ typedef struct client {
    char username[20];
    char passwd[20];
 
-};
+}client;
 
 int main(int argc, char **argv)
 {
